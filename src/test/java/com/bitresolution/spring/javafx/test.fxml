@@ -1,0 +1,22 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<AnchorPane fx:controller="fixtures.TestController" xmlns:fx="http://javafx.com/fxml">
+    <BorderPane>
+        <top>
+            <Label text="Top Dock"/>
+        </top>
+        <left>
+            <Label text="Left Dock"/>
+        </left>
+        <center>
+            <Label text="Editors"/>
+        </center>
+        <right>
+            <Label text="Right Dock"/>
+        </right>
+        <bottom>
+            <Label text="Bottom Dock"/>
+        </bottom>
+    </BorderPane>
+</AnchorPane>
