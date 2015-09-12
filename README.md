@@ -3,11 +3,18 @@ Spring Integration for JavaFX applications
 
 # Example Usage
 
-In your POM file add the following dependency:
+Checkout the project and in the root perform:
+
+        mvn clean install
+
+In your project POM file add the following dependency:
 
         <dependencies>
             ...
             <dependency>
+                <groupId>com.bitresolution</groupId>
+                <artifactId>spring-javafx</artifactId>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
             ...
         </dependencies>
