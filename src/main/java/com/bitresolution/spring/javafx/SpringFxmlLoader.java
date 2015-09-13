@@ -43,7 +43,7 @@ public class SpringFxmlLoader {
                 return context.getBean(param);
             }
         });
-        this.loader.setBuilderFactory(context.getBean(FxBuilderRegistry.class));
+        this.loader.setBuilderFactory(context.getBean(SpringFxBuilderFactory.class));
     }
 
     private FXMLLoader createFXMLLoader(URL location) {

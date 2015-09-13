@@ -1,34 +1,38 @@
 package com.bitresolution.spring.javafx;
 
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.util.Builder;
+import javafx.util.BuilderFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 
-import static com.bitresolution.spring.javafx.FxComponentBuilder.adaptBuilder;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
-public class SpringFxBuilderFactory {
+public class SpringFxBuilderFactory implements BuilderFactory {
 
-    private final AutowireCapableBeanFactory beanFactory;
-    private final JavaFXBuilderFactory javaFXBuilderFactory;
+    public final Map<Class<?>, SpringFxBuilder<?>> builders;
+    private final SpringDefaultFxBuilderFactory builderFactory;
 
     @Autowired
-    public SpringFxBuilderFactory(AutowireCapableBeanFactory beanFactory) {
-        this.beanFactory = beanFactory;
-        javaFXBuilderFactory = new JavaFXBuilderFactory();
+    public SpringFxBuilderFactory(SpringDefaultFxBuilderFactory builderFactory) {
+        this.builderFactory = builderFactory;
+        this.builders = new HashMap<>();
     }
 
-    @SuppressWarnings("unchecked")
-    public <T> FxComponentBuilder<T> getBuilder(Class<T> type) {
-        Builder<T> builder = (Builder<T>) javaFXBuilderFactory.getBuilder(type);
-        if(builder == null)
-            return null;
-        return isFxComponent(type) ? new AutowiredFxComponentBuilder<>(builder, beanFactory) : adaptBuilder(type, builder);
+    /**
+     * Returns a builder suitable for constructing instances of the given type.
+     *
+     * @param type
+     * @return A builder for the given type, or <tt>null</tt> if this factory does not
+     * produce builders for the type.
+     */
+    @Override
+    public Builder<?> getBuilder(Class<?> type) {
+        return builders.getOrDefault(type, builderFactory.getBuilder(type));
     }
 
-    private <T> boolean isFxComponent(Class<T> type) {
-        return type.isAnnotationPresent(FXComponent.class);
+    public void register(SpringFxBuilder<?> builder) {
+        builders.put(builder.getBuilderType(), builder);
     }
 }

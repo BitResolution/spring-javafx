@@ -2,15 +2,15 @@ package com.bitresolution.spring.javafx;
 
 import javafx.util.Builder;
 
-public interface FxComponentBuilder<T> extends Builder<T> {
+public interface SpringFxBuilder<T> extends Builder<T> {
 
     Class<T> getBuilderType();
 
-    static <T> FxComponentBuilder<T> adaptBuilder(Class<T> type, Builder<T> builder) {
+    static <T> SpringFxBuilder<T> adaptBuilder(Class<T> type, Builder<T> builder) {
         return new Adaptor<>(type, builder);
     }
 
-    class Adaptor<T> implements FxComponentBuilder<T> {
+    class Adaptor<T> implements SpringFxBuilder<T> {
 
         private final Class<T> type;
         private final Builder<T> builder;
