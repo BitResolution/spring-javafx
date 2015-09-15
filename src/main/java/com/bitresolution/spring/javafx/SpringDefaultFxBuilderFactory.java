@@ -23,8 +23,8 @@ public class SpringDefaultFxBuilderFactory {
     @SuppressWarnings("unchecked")
     public <T> SpringFxBuilder<T> getBuilder(Class<T> type) {
         Builder<T> builder = (Builder<T>) javaFXBuilderFactory.getBuilder(type);
-        if(builder == null || isFxComponent(type)) {
-            return new SpringManagedFxBuilder<>(type, beanFactory);
+        if(builder == null ) {
+            return isFxComponent(type) ? new SpringManagedFxBuilder<>(type, beanFactory) : null;
         }
         else {
             return adaptBuilder(type, builder);
