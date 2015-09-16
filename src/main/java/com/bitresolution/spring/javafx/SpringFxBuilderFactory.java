@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @{link BuilderFactory} which allow for the registration of @{link SpringFxBuilder}s. When performing lookups
+ * if no SpringFxBuilder is found for that type, the call is delegated to @{link SpringDefaultFxBuilderFactory}.
+ */
 @Component
 public class SpringFxBuilderFactory implements BuilderFactory {
 
